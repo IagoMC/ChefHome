@@ -51,7 +51,6 @@ class Publicacion(models.Model):
 
 
 class Seguidores(models.Model):
-    id = models.IntegerField(primary_key=True)
     idusuario = models.ForeignKey('Usuarios', models.DO_NOTHING, db_column='idUsuario')  # Field name made lowercase.
     idseguido = models.ForeignKey('Usuarios', models.DO_NOTHING, db_column='idSeguido')  # Field name made lowercase.
 
