@@ -11,8 +11,8 @@ from django.db import models
 class Comentarios(models.Model):
     idpublicacion = models.ForeignKey('Publicacion', models.DO_NOTHING, db_column='idPublicacion')  # Field name made lowercase.
     idusuario = models.ForeignKey('Usuarios', models.DO_NOTHING, db_column='idUsuario')  # Field name made lowercase.
-    comentarios = models.CharField(db_column='Comentarios', max_length=300)  # Field name made lowercase.
-    valoracion = models.IntegerField(db_column='Valoracion', blank=True, null=True)  # Field name made lowercase.
+    comentarios = models.CharField(max_length=300)
+    valoracion = models.IntegerField(blank=True, null=True)
 
     class Meta:
         managed = False
@@ -21,7 +21,7 @@ class Comentarios(models.Model):
 
 class Fotospublicacion(models.Model):
     idpublicacion = models.ForeignKey('Publicacion', models.DO_NOTHING, db_column='idPublicacion')  # Field name made lowercase.
-    fotos = models.CharField(max_length=100, blank=True, null=True)
+    fotos = models.CharField(max_length=300, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -30,7 +30,7 @@ class Fotospublicacion(models.Model):
 
 class Platoingredientes(models.Model):
     idpublicacion = models.ForeignKey('Publicacion', models.DO_NOTHING, db_column='idPublicacion')  # Field name made lowercase.
-    ingrediente = models.CharField(max_length=30, blank=True, null=True)
+    ingrediente = models.CharField(max_length=100, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -39,25 +39,20 @@ class Platoingredientes(models.Model):
 
 class Publicacion(models.Model):
     idcreador = models.ForeignKey('Usuarios', models.DO_NOTHING, db_column='idCreador')  # Field name made lowercase.
-    nombre = models.CharField(db_column='Nombre', unique=True, max_length=20)  # Field name made lowercase.
-    descripcion = models.CharField(db_column='Descripcion', max_length=400)  # Field name made lowercase.
-    pasos = models.CharField(db_column='Pasos', max_length=800)  # Field name made lowercase.
+    nombre = models.CharField(unique=True, max_length=20)
+    descripcion = models.CharField(max_length=600)
+    pasos = models.CharField(max_length=3000)
     fecha = models.DateField(blank=True, null=True)
-    tipo = models.CharField(db_column='Tipo', max_length=20)  # Field name made lowercase.
+    tipo = models.CharField(max_length=20)
 
     class Meta:
         managed = False
         db_table = 'Publicacion'
 
-"""
+
 class Seguidores(models.Model):
     idusuario = models.ForeignKey('Usuarios', models.DO_NOTHING, db_column='idUsuario')  # Field name made lowercase.
     idseguido = models.ForeignKey('Usuarios', models.DO_NOTHING, db_column='idSeguido')  # Field name made lowercase.
-"""
-
-class Seguidores(models.Model):
-    idseguido = models.ForeignKey('Usuarios', on_delete=models.CASCADE, related_name='seguidores_de')
-    idusuario = models.ForeignKey('Usuarios', on_delete=models.CASCADE, related_name='usuarios_seguidos')
 
     class Meta:
         managed = False
@@ -65,12 +60,12 @@ class Seguidores(models.Model):
 
 
 class Usuarios(models.Model):
-    nombre = models.CharField(db_column='Nombre', unique=True, max_length=20)  # Field name made lowercase.
-    email = models.CharField(db_column='Email', unique=True, max_length=30)  # Field name made lowercase.
-    contraseña = models.CharField(db_column='Contraseña', max_length=50)  # Field name made lowercase.
-    descripcion = models.CharField(db_column='Descripcion', max_length=400, blank=True, null=True)  # Field name made lowercase.
-    fotoperfil = models.CharField(db_column='FotoPerfil', max_length=100, blank=True, null=True)  # Field name made lowercase.
-    token = models.CharField(db_column='Token', max_length=300, blank=True, null=True)  # Field name made lowercase.
+    nombre = models.CharField(unique=True, max_length=20)
+    email = models.CharField(unique=True, max_length=30)
+    contraseña = models.CharField(max_length=300)
+    descripcion = models.CharField(max_length=600, blank=True, null=True)
+    fotoperfil = models.CharField(db_column='fotoPerfil', max_length=300, blank=True, null=True)  # Field name made lowercase.
+    token = models.CharField(max_length=300, blank=True, null=True)
 
     class Meta:
         managed = False
