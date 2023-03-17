@@ -20,5 +20,6 @@ from app import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('login/', views.login, name='login'),
+    path('crear_usuario/', views.crear_usuario, name='crear_usuario'),
 
 ]
