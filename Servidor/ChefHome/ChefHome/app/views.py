@@ -28,7 +28,7 @@ def crear_usuario(request):
             return JsonResponse({'error': 'Ya existe un usuario con este correo electrónico o nombre'})
         
         # Creamos el usuario y guardamos su contraseña con set_password
-        usuarios = Usuarios.objects.create_user(email=email, first_name=nombre)
+        usuarios = Usuarios.objects.create_user(Email=email, Nombre=nombre)
         usuarios.set_password(Contraseña)
         usuarios.save()
         
@@ -50,18 +50,18 @@ def login(request):
         email = body.get('email')
         contraseña = body.get('contraseña')
 
-        Usuarios = authenticate(request, Email=email, Contraseña=contraseña)
+        Usuarios = authenticate(request, email=email, contraseña=contraseña)
         if usuario is not None:
             login(request, usuario)
             Token = get_token(usuario)
             usuario.Token = Token
             usuario.save()
-            return JsonResponse({'token': Token})
+            return JsonResponse({'token': token})
         else:
-            usuario_existente = Usuarios.objects.filter(Email=email).exists()
+            usuario_existente = Usuarios.objects.filter(email=email).exists()
             if usuario_existente:
-                usuario = Usuarios.objects.get(Email=email)
-                if check_password(password, usuario.Contraseña):
+                usuario = Usuarios.objects.get(email=email)
+                if check_password(contraseña, usuario.contraseña):
                     return JsonResponse({'error': 'Contraseña incorrecta'}, status=401,safe=False)
                 else:
                     return JsonResponse({'error': 'Usuario no encontrado'}, status=404,safe=False)
@@ -70,7 +70,7 @@ def login(request):
     else:
         return render(request, 'login.html')
     
-  
+@csrf_exempt    
 def get_token(usuario):
     payload = {
         'usuario_id': usuario.id,

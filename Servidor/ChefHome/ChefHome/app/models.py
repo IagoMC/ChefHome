@@ -49,10 +49,15 @@ class Publicacion(models.Model):
         managed = False
         db_table = 'Publicacion'
 
-
+"""
 class Seguidores(models.Model):
     idusuario = models.ForeignKey('Usuarios', models.DO_NOTHING, db_column='idUsuario')  # Field name made lowercase.
     idseguido = models.ForeignKey('Usuarios', models.DO_NOTHING, db_column='idSeguido')  # Field name made lowercase.
+"""
+
+class Seguidores(models.Model):
+    idseguido = models.ForeignKey('Usuarios', on_delete=models.CASCADE, related_name='seguidores_de')
+    idusuario = models.ForeignKey('Usuarios', on_delete=models.CASCADE, related_name='usuarios_seguidos')
 
     class Meta:
         managed = False
