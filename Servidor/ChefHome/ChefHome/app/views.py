@@ -4,6 +4,8 @@ from django.views.decorators.csrf import csrf_exempt
 import jwt
 from datetime import datetime, timedelta
 from .models import Usuarios
+import json
+
 
 @csrf_exempt
 def crear_usuario(request):
