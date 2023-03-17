@@ -5,6 +5,39 @@ import jwt
 from datetime import datetime, timedelta
 from .models import Usuarios
 
+
+@csrf_exempt
+def crear_usuario(request):
+    if request.method == 'POST':
+        datos = json.loads(request.body)
+        email = datos.get('email')
+        Contraseña = datos.get('contraseña')
+        confirm_contraseña = datos.get('confirmarContraseña')
+        nombre = datos.get('nombre')
+        
+        # Validamos que los campos obligatorios hayan sido suministrados
+        if not email or not Contraseña or not confirm_contraseña or not nombre:
+            return JsonResponse({'error': 'Debe suministrar todos los campos obligatorios'})
+        
+        # Validamos que las contraseñas coincidan
+        if Contraseña != confirm_contraseña:
+            return JsonResponse({'error': 'Las contraseñas no coinciden'})
+        
+        # Validamos que no exista un usuario con el mismo correo electrónico o nombre
+        if Usuarios.objects.filter(Email=email).exists() or Usuarios.objects.filter(Nombre=nombre).exists():
+            return JsonResponse({'error': 'Ya existe un usuario con este correo electrónico o nombre'})
+        
+        # Creamos el usuario y guardamos su contraseña con set_password
+        usuarios = Usuarios.objects.create_user(email=email, first_name=nombre)
+        usuarios.set_password(Contraseña)
+        usuarios.save()
+        
+        return JsonResponse({'mensaje': 'Usuario creado exitosamente'})
+    else:
+        return JsonResponse({'error': 'Este endpoint solo acepta solicitudes POST'})
+    
+    
+@csrf_exempt    
 def login(request):
     if request.method == 'POST':
         body = json.loads(request.body)
