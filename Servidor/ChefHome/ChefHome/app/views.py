@@ -20,15 +20,15 @@ def login(request):
         Usuarios = authenticate(request, Email=email, Contraseña=contraseña)
         if usuario is not None:
             login(request, usuario)
-            token = get_token(usuario)
-            usuario.token = token
+            Token = get_token(usuario)
+            usuario.Token = Token
             usuario.save()
-            return JsonResponse({'token': token})
+            return JsonResponse({'token': Token})
         else:
-            usuario_existente = Usuarios.objects.filter(email=email).exists()
+            usuario_existente = Usuarios.objects.filter(Email=email).exists()
             if usuario_existente:
-                usuario = Usuarios.objects.get(email=email)
-                if check_password(password, usuario.password):
+                usuario = Usuarios.objects.get(Email=email)
+                if check_password(password, usuario.Contraseña):
                     return JsonResponse({'error': 'Contraseña incorrecta'}, status=401,safe=False)
                 else:
                     return JsonResponse({'error': 'Usuario no encontrado'}, status=404,safe=False)
