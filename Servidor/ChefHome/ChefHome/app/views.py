@@ -82,8 +82,8 @@ def get_token(usuario):
 
 
 """
-app.Seguidores.idseguido: (fields.E304) Reverse accessor 'Usuarios.seguidores_set' for 'app.Seguidores.idseguido' clashes with reverse accessor for 'app.Seguidores.idusuario'.
-        HINT: Add or change a related_name argument to the definition for 'app.Seguidores.idseguido' or 'app.Seguidores.idusuario'.
-app.Seguidores.idusuario: (fields.E304) Reverse accessor 'Usuarios.seguidores_set' for 'app.Seguidores.idusuario' clashes with reverse accessor for 'app.Seguidores.idseguido'.
-        HINT: Add or change a related_name argument to the definition for 'app.Seguidores.idusuario' or 'app.Seguidores.idseguido'.
+class Seguidores(models.Model):
+    idseguido = models.ForeignKey(Usuarios, on_delete=models.CASCADE, related_name='seguidores_de')
+    idusuario = models.ForeignKey(Usuarios, on_delete=models.CASCADE, related_name='usuarios_seguidos')
+
 """
