@@ -66,7 +66,7 @@ class Usuarios(models.Model):
     contraseña = models.CharField(db_column='Contraseña', max_length=50)  # Field name made lowercase.
     descripcion = models.CharField(db_column='Descripcion', max_length=400, blank=True, null=True)  # Field name made lowercase.
     fotoperfil = models.CharField(db_column='FotoPerfil', max_length=100, blank=True, null=True)  # Field name made lowercase.
-    token = models.CharField(db_column='Token', max_length=20, blank=True, null=True)  # Field name made lowercase.
+    token = models.CharField(db_column='Token', max_length=300, blank=True, null=True)  # Field name made lowercase.
 
     class Meta:
         managed = False
