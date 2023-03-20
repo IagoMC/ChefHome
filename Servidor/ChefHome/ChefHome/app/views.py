@@ -8,6 +8,7 @@ import json
 from django.contrib.auth.models import UserManager
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
+from django.shortcuts import render
 
 
 @csrf_exempt
@@ -20,17 +21,26 @@ def crear_usuario(request):
         nombre = datos.get('nombre')
         
         # Validamos que los campos obligatorios hayan sido suministrados
-        if not email or not contraseña or not confirm_contraseña or not nombre:
-            return JsonResponse({'mensaje': 'Debe suministrar todos los campos obligatorios'})
+        if not email:
+            return JsonResponse({'mensaje': 'Debe suministrar el correo electrónico'})
+        if not nombre:
+            return JsonResponse({'mensaje': 'Debe suministrar el nombre'})
+        if not contraseña:
+            return JsonResponse({'mensaje': 'Debe suministrar la contraseña'})
+        if not confirm_contraseña:
+            return JsonResponse({'mensaje': 'Debe confirmar la contraseña'})
         
         # Validamos que las contraseñas coincidan
         if contraseña != confirm_contraseña:
             return JsonResponse({'mensaje': 'Las contraseñas no coinciden'})
         
         # Validamos que no exista un usuario con el mismo correo electrónico o nombre
-        if Usuarios.objects.filter(email=email).exists() or Usuarios.objects.filter(nombre=nombre).exists():
-            return JsonResponse({'mensaje': 'Ya existe un usuario con este correo electrónico o nombre'})
-        
+        usuario_existente = None
+        if Usuarios.objects.filter(email=email).exists():
+            usuario_existente = "correo electrónico"
+        elif Usuarios.objects.filter(nombre=nombre).exists():
+            usuario_existente = "nombre"
+            
         # Creamos el usuario y guardamos su contraseña con set_password
         usuario = Usuarios(nombre=nombre, email=email, contraseña=make_password(contraseña))
         usuario.save()
