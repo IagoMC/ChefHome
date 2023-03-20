@@ -86,7 +86,7 @@ def login(request):
             else:
                 return JsonResponse({'error': 'Usuario no encontrado'}, status=404)
     else:
-        return render(request, 'login.html')
+        return render(request, 'home.html')
     
 def get_token(usuario):
     payload = {
@@ -96,7 +96,6 @@ def get_token(usuario):
     }
     token = jwt.encode(payload, settings.JWT_SECRET_KEY, algorithm='HS256')
     return token.decode('utf-8')
-
 """
    raise FieldError(
 django.core.exceptions.FieldError: Cannot resolve keyword 'Email' into field. Choices are: comentarios, contraseña, descripcion, email, fotoperfil, id, nombre, publicacion, seguidores_de, token, usuarios_seguidos
