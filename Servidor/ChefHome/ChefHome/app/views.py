@@ -122,4 +122,8 @@ ___--
    usuario_existente = Usuarios.objects.filter(email=email).exists()
 AttributeError: 'NoneType' object has no attribute 'objects'
 
+
+
+   return view_func(*args, **kwargs)
+TypeError: login() takes 1 positional argument but 2 were given
 """
