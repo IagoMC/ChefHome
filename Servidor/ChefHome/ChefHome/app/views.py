@@ -27,13 +27,12 @@ def crear_usuario(request):
             return JsonResponse({'error': 'Las contraseñas no coinciden'})
         
         # Validamos que no exista un usuario con el mismo correo electrónico o nombre
-        if Usuarios.objects.filter(email=email).exists() or Usuarios.objects.filter(nombre=nombre).exists():
+        if User.objects.filter(email=email).exists() or User.objects.filter(username=nombre).exists():
             return JsonResponse({'error': 'Ya existe un usuario con este correo electrónico o nombre'})
         
         # Creamos el usuario y guardamos su contraseña con set_password
-        usuario = Usuarios.objects.create_user(email=email, nombre=nombre)
-        usuario.make_password(contraseña)
-        usuario.contraseña = hashed_password
+        usuario = User.objects.create(email=email, username=nombre)
+        usuario.set_password(contraseña)
         usuario.save()
         
         return JsonResponse({'mensaje': 'Usuario creado exitosamente'})
