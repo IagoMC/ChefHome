@@ -9,6 +9,8 @@ from django.contrib.auth.models import UserManager
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
 from django.shortcuts import render
+from django.conf import settings
+from django.contrib.auth.hashers import check_password
 
 
 @csrf_exempt
@@ -61,32 +63,31 @@ def login(request):
         campos_requeridos = ['email', 'contrasena']
         for campo in campos_requeridos:
             if campo not in body:
-                return JsonResponse({'error': f'Falta campo requerido: {campo}'}, status=400,safe=False)
+                return JsonResponse({'error': f'Falta campo requerido: {campo}'}, status=400)
 
         email = body.get('email')
-        contraseña = body.get('contraseña')
+        contraseña = body.get('contrasena')
 
-        Usuarios = authenticate(request, email=email, contraseña=contraseña)
-        if Usuarios is not None:
+        usuario = authenticate(request, email=email, password=contraseña)
+        if usuario is not None:
             login(request, usuario)
-            Token = get_token(usuario)
-            Usuarios.token = Token
-            Usuarios.save()
+            token = get_token(usuario)
+            usuario.token = token
+            usuario.save()
             return JsonResponse({'token': token})
         else:
             usuario_existente = Usuarios.objects.filter(email=email).exists()
             if usuario_existente:
                 usuario = Usuarios.objects.get(email=email)
                 if check_password(contraseña, usuario.contraseña):
-                    return JsonResponse({'error': 'Contraseña incorrecta'}, status=401,safe=False)
+                    return JsonResponse({'error': 'Contraseña incorrecta'}, status=401)
                 else:
-                    return JsonResponse({'error': 'Usuario no encontrado'}, status=404,safe=False)
+                    return JsonResponse({'error': 'Usuario no encontrado'}, status=404)
             else:
-                return JsonResponse({'error': 'Usuario no encontrado'}, status=404,safe=False)
+                return JsonResponse({'error': 'Usuario no encontrado'}, status=404)
     else:
         return render(request, 'login.html')
     
-@csrf_exempt    
 def get_token(usuario):
     payload = {
         'usuario_id': usuario.id,
@@ -95,7 +96,6 @@ def get_token(usuario):
     }
     token = jwt.encode(payload, settings.JWT_SECRET_KEY, algorithm='HS256')
     return token.decode('utf-8')
-
 
 """
    raise FieldError(
