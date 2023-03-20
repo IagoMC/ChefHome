@@ -42,7 +42,7 @@ def crear_usuario(request):
             usuario_existente = "nombre"
             
         if usuario_existente:
-            return JsonResponse({'mensaje': f'Ya existe un usuario con este {usuario_existente}'})
+            return JsonResponse({'mensaje': f'Ya existe este {usuario_existente}'})
                   
         # Creamos el usuario y guardamos su contraseña con set_password
         usuario = Usuarios(nombre=nombre, email=email, contraseña=make_password(contraseña))
