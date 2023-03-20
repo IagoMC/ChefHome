@@ -87,4 +87,8 @@ def get_token(usuario):
 """
    raise FieldError(
 django.core.exceptions.FieldError: Cannot resolve keyword 'Email' into field. Choices are: comentarios, contraseña, descripcion, email, fotoperfil, id, nombre, publicacion, seguidores_de, token, usuarios_seguidos
+
+
+AttributeError: 'Manager' object has no attribute 'create_user'
+
 """
