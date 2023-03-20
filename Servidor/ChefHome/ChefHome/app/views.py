@@ -5,6 +5,7 @@ import jwt
 from datetime import datetime, timedelta
 from .models import Usuarios
 import json
+from django.contrib.auth.models import UserManager
 
 
 @csrf_exempt
