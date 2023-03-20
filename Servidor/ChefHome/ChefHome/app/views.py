@@ -67,11 +67,11 @@ def login(request):
         contraseña = body.get('contraseña')
 
         Usuarios = authenticate(request, email=email, contraseña=contraseña)
-        if usuario is not None:
+        if Usuarios is not None:
             login(request, usuario)
             Token = get_token(usuario)
-            usuario.Token = Token
-            usuario.save()
+            Usuarios.token = Token
+            Usuarios.save()
             return JsonResponse({'token': token})
         else:
             usuario_existente = Usuarios.objects.filter(email=email).exists()
@@ -112,5 +112,8 @@ __________________
     usuario.set_password(contraseña)
 AttributeError: 'Usuarios' object has no attribute 'set_password
 
+___--
+   usuario_existente = Usuarios.objects.filter(email=email).exists()
+AttributeError: 'NoneType' object has no attribute 'objects'
 
 """
