@@ -12,8 +12,8 @@ def crear_usuario(request):
     if request.method == 'POST':
         datos = json.loads(request.body)
         email = datos.get('email')
-        contraseña = datos.get('contraseña')
-        confirm_contraseña = datos.get('confirmarContraseña')
+        contraseña = datos.get('contrasena')
+        confirm_contraseña = datos.get('confirmarContrasena')
         nombre = datos.get('nombre')
         
         # Validamos que los campos obligatorios hayan sido suministrados
@@ -83,8 +83,6 @@ def get_token(usuario):
 
 
 """
-class Seguidores(models.Model):
-    idseguido = models.ForeignKey(Usuarios, on_delete=models.CASCADE, related_name='seguidores_de')
-    idusuario = models.ForeignKey(Usuarios, on_delete=models.CASCADE, related_name='usuarios_seguidos')
-
+   raise FieldError(
+django.core.exceptions.FieldError: Cannot resolve keyword 'Email' into field. Choices are: comentarios, contraseña, descripcion, email, fotoperfil, id, nombre, publicacion, seguidores_de, token, usuarios_seguidos
 """
