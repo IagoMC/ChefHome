@@ -31,8 +31,7 @@ def crear_usuario(request):
             return JsonResponse({'error': 'Ya existe un usuario con este correo electrónico o nombre'})
         
         # Creamos el usuario y guardamos su contraseña con set_password
-        usuario = Usuarios.objects.create(email=email, nombre=nombre)
-        usuario.set_password(contraseña)
+        usuario = Usuarios(nombre=nombre, email=email, contraseña=make_password(contrasena))
         usuario.save()
         
         return JsonResponse({'mensaje': 'Usuario creado exitosamente'})
