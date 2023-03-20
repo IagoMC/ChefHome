@@ -25,11 +25,11 @@ def crear_usuario(request):
             return JsonResponse({'error': 'Las contraseñas no coinciden'})
         
         # Validamos que no exista un usuario con el mismo correo electrónico o nombre
-        if Usuarios.objects.filter(Email=email).exists() or Usuarios.objects.filter(Nombre=nombre).exists():
+        if Usuarios.objects.filter(email=email).exists() or Usuarios.objects.filter(nombre=nombre).exists():
             return JsonResponse({'error': 'Ya existe un usuario con este correo electrónico o nombre'})
         
         # Creamos el usuario y guardamos su contraseña con set_password
-        usuario = Usuarios.objects.create_user(email=email, first_name=nombre)
+        usuario = Usuarios.objects.create_user(email=email, nombre=nombre)
         usuario.set_password(contraseña)
         usuario.save()
         
@@ -75,8 +75,8 @@ def login(request):
 def get_token(usuario):
     payload = {
         'usuario_id': usuario.id,
-        'usuario_nombre': usuario.Nombre,
-        'usuario_email': usuario.Email,
+        'usuario_nombre': usuario.nombre,
+        'usuario_email': usuario.email,
     }
     token = jwt.encode(payload, settings.JWT_SECRET_KEY, algorithm='HS256')
     return token.decode('utf-8')
