@@ -27,11 +27,11 @@ def crear_usuario(request):
             return JsonResponse({'error': 'Las contraseñas no coinciden'})
         
         # Validamos que no exista un usuario con el mismo correo electrónico o nombre
-        if User.objects.filter(email=email).exists() or User.objects.filter(username=nombre).exists():
+        if Usuarios.objects.filter(email=email).exists() or Usuarios.objects.filter(username=nombre).exists():
             return JsonResponse({'error': 'Ya existe un usuario con este correo electrónico o nombre'})
         
         # Creamos el usuario y guardamos su contraseña con set_password
-        usuario = User.objects.create(email=email, username=nombre)
+        usuario = Usuarios.objects.create(email=email, username=nombre)
         usuario.set_password(contraseña)
         usuario.save()
         
@@ -90,5 +90,8 @@ django.core.exceptions.FieldError: Cannot resolve keyword 'Email' into field. Ch
 
 
 AttributeError: 'Manager' object has no attribute 'create_user'
+--------
 
+   raise FieldError(
+django.core.exceptions.FieldError: Cannot resolve keyword 'username' into field. Choices are: comentarios, contraseña, descripcion, email, fotoperfil, id, nombre, publicacion, seguidores_de, token, usuarios_seguidos
 """
