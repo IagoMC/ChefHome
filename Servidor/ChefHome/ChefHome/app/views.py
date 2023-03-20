@@ -32,7 +32,8 @@ def crear_usuario(request):
         
         # Creamos el usuario y guardamos su contraseña con set_password
         usuario = Usuarios.objects.create_user(email=email, nombre=nombre)
-        usuario.set_password(contraseña)
+        usuario.make_password(contraseña)
+        usuario.contraseña = hashed_password
         usuario.save()
         
         return JsonResponse({'mensaje': 'Usuario creado exitosamente'})
