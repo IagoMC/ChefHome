@@ -21,15 +21,15 @@ def crear_usuario(request):
         
         # Validamos que los campos obligatorios hayan sido suministrados
         if not email or not contraseña or not confirm_contraseña or not nombre:
-            return JsonResponse({'error': 'Debe suministrar todos los campos obligatorios'})
+            return JsonResponse({'mensaje': 'Debe suministrar todos los campos obligatorios'})
         
         # Validamos que las contraseñas coincidan
         if contraseña != confirm_contraseña:
-            return JsonResponse({'error': 'Las contraseñas no coinciden'})
+            return JsonResponse({'mensaje': 'Las contraseñas no coinciden'})
         
         # Validamos que no exista un usuario con el mismo correo electrónico o nombre
         if Usuarios.objects.filter(email=email).exists() or Usuarios.objects.filter(nombre=nombre).exists():
-            return JsonResponse({'error': 'Ya existe un usuario con este correo electrónico o nombre'})
+            return JsonResponse({'mensaje': 'Ya existe un usuario con este correo electrónico o nombre'})
         
         # Creamos el usuario y guardamos su contraseña con set_password
         usuario = Usuarios(nombre=nombre, email=email, contraseña=make_password(contraseña))
@@ -37,7 +37,7 @@ def crear_usuario(request):
         
         return JsonResponse({'mensaje': 'Usuario creado exitosamente'})
     else:
-        return JsonResponse({'error': 'Este endpoint solo acepta solicitudes POST'})
+        return JsonResponse({'mensaje': 'Este endpoint solo acepta solicitudes POST'})
     
     
 @csrf_exempt    
