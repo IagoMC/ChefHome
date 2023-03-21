@@ -1,4 +1,4 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import jwt
@@ -66,11 +66,11 @@ def login(request):
                 return JsonResponse({'error': f'Falta campo requerido: {campo}'}, status=400)
 
         email = body.get('email')
-        contraseña = body.get('contrasena')
+        contrasena = body.get('contrasena')
 
-        usuario = authenticate(request, email=email, password=contraseña)
+        usuario = authenticate(request, email=email, password=contrasena)
         if usuario is not None:
-            login(request, usuario)
+            login(request, usuario, backend='django.contrib.auth.backends.ModelBackend')
             token = get_token(usuario)
             usuario.token = token
             usuario.save()
@@ -79,10 +79,10 @@ def login(request):
             usuario_existente = Usuarios.objects.filter(email=email).exists()
             if usuario_existente:
                 usuario = Usuarios.objects.get(email=email)
-                if not check_password(contraseña, usuario.contraseña):
+                if not check_password(contrasena, usuario.contrasena):
                     return JsonResponse({'error': 'Contraseña incorrecta'}, status=401)
                 else:
-                    login(request, usuario)
+                    login(request, usuario, backend='django.contrib.auth.backends.ModelBackend')
                     token = get_token(usuario)
                     usuario.token = token
                     usuario.save()
@@ -91,7 +91,8 @@ def login(request):
                 return JsonResponse({'error': 'Usuario no encontrado'}, status=404)
     else:
         return render(request, 'login.html')
-    
+
+
 def get_token(usuario):
     payload = {
         'usuario_id': usuario.id,
@@ -100,8 +101,6 @@ def get_token(usuario):
     }
     token = jwt.encode(payload, settings.JWT_SECRET_KEY, algorithm='HS256')
     return token.decode('utf-8')
-
-
 
 """
    raise FieldError(
