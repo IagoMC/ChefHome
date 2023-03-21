@@ -55,7 +55,8 @@ def crear_usuario(request):
         return JsonResponse({'mensaje': 'Este endpoint solo acepta solicitudes POST'})
     
     
-@csrf_exempt    
+
+@csrf_exempt
 def login(request):
     if request.method == 'POST':
         body = json.loads(request.body)
@@ -68,7 +69,7 @@ def login(request):
         email = body.get('email')
         contrasena = body.get('contrasena')
 
-        usuario = authenticate(request, email=email, contraseña=contrasena)
+        usuario = authenticate(request, email=email, password=contrasena)
         if usuario is not None:
             login(request, usuario, backend='django.contrib.auth.backends.ModelBackend')
             token = get_token(usuario)
