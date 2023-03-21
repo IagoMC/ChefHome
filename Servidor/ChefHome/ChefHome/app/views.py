@@ -132,4 +132,8 @@ TypeError: login() takes 1 positional argument but 2 were given
     return view_func(*args, **kwargs)
 TypeError: login() got an unexpected keyword argument 'backend'
 
+_______________________
+
+    raise errorclass(errno, errval)
+django.db.utils.ProgrammingError: (1146, "Table 'ChefHome.django_session' doesn't exist")
 """

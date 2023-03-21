@@ -19,7 +19,7 @@ from app import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('login', views.login_user, name='login'),
+    path('login', views.login_user, name='login_user'),
     path('crear_usuario', views.crear_usuario, name='crear_usuario'),
 
 ]
