@@ -134,6 +134,7 @@ TypeError: login() got an unexpected keyword argument 'backend'
 
 _______________________
 
-    raise errorclass(errno, errval)
+
+    raise errorclass(errno, errval)s
 django.db.utils.ProgrammingError: (1146, "Table 'ChefHome.django_session' doesn't exist")
 """
