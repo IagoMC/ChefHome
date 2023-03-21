@@ -68,7 +68,7 @@ def login(request):
         email = body.get('email')
         contrasena = body.get('contrasena')
 
-        usuario = authenticate(request, email=email, password=contrasena)
+        usuario = authenticate(request, email=email, contraseña=contrasena)
         if usuario is not None:
             login(request, usuario, backend='django.contrib.auth.backends.ModelBackend')
             token = get_token(usuario)
@@ -79,7 +79,7 @@ def login(request):
             usuario_existente = Usuarios.objects.filter(email=email).exists()
             if usuario_existente:
                 usuario = Usuarios.objects.get(email=email)
-                if not check_password(contrasena, usuario.contrasena):
+                if not check_password(contrasena, usuario.contraseña):
                     return JsonResponse({'error': 'Contraseña incorrecta'}, status=401)
                 else:
                     login(request, usuario, backend='django.contrib.auth.backends.ModelBackend')
@@ -125,4 +125,10 @@ AttributeError: 'NoneType' object has no attribute 'objects'
 
    return view_func(*args, **kwargs)
 TypeError: login() takes 1 positional argument but 2 were given
+
+
+
+    return view_func(*args, **kwargs)
+TypeError: login() got an unexpected keyword argument 'backend'
+
 """
