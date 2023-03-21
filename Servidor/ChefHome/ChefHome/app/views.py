@@ -53,7 +53,7 @@ def crear_usuario(request):
         return JsonResponse({'mensaje': 'Usuario creado exitosamente'})
     else:
         return JsonResponse({'mensaje': 'Este endpoint solo acepta solicitudes POST'})
-    
+
     
 
 #User = get_user_model()
