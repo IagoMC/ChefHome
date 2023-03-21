@@ -57,7 +57,6 @@ def crear_usuario(request):
     
 
 #User = get_user_model()
-
 @csrf_exempt
 def login_user(request):
     if request.method == 'POST':
@@ -86,7 +85,7 @@ def login_user(request):
             return JsonResponse({'mensaje': 'Email o contraseña incorrectos'}, status=401)
     else:
         return JsonResponse({'mensaje': 'Método no permitido'}, status=405)
-
+    
 """
    raise FieldError(
 django.core.exceptions.FieldError: Cannot resolve keyword 'Email' into field. Choices are: comentarios, contraseña, descripcion, email, fotoperfil, id, nombre, publicacion, seguidores_de, token, usuarios_seguidos
