@@ -71,21 +71,24 @@ def login_user(request):
         contrasena = body.get('contrasena')
 
         usuario = User.objects.filter(email=email).first()
-        if usuario is not None and usuario.check_password(contrasena):
-            payload = {
-                'usuario_id': usuario.id,
-                'usuario_nombre': usuario.nombre,
-                'usuario_email': usuario.email,
-            }
-            token = jwt.encode(payload, settings.JWT_SECRET_KEY, algorithm='HS256')
-            usuario.token = token
-            usuario.save()
-            return JsonResponse({'token': token.decode('utf-8')})
+        if usuario is not None:
+            if usuario.check_password(contrasena):
+                payload = {
+                    'usuario_id': usuario.id,
+                    'usuario_nombre': usuario.nombre,
+                    'usuario_email': usuario.email,
+                }
+                token = jwt.encode(payload, settings.JWT_SECRET_KEY, algorithm='HS256')
+                usuario.token = token
+                usuario.save()
+                return JsonResponse({'token': token.decode('utf-8')})
+            else:
+                return JsonResponse({'mensaje': 'Contraseña incorrecta'}, status=401)
         else:
-            return JsonResponse({'mensaje': 'Email o contraseña incorrectos'}, status=401)
+            return JsonResponse({'mensaje': 'Email incorrecto'}, status=401)
     else:
         return JsonResponse({'mensaje': 'Método no permitido'}, status=405)
-    
+
 """
    raise FieldError(
 django.core.exceptions.FieldError: Cannot resolve keyword 'Email' into field. Choices are: comentarios, contraseña, descripcion, email, fotoperfil, id, nombre, publicacion, seguidores_de, token, usuarios_seguidos
