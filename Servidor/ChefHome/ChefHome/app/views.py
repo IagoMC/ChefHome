@@ -82,7 +82,7 @@ def login(request):
                 if not check_password(contrasena, usuario.contraseña):
                     return JsonResponse({'error': 'Contraseña incorrecta'}, status=401)
                 else:
-                    login(request, usuario, backend='django.contrib.auth.backends.ModelBackend')
+                    login(request, usuario)
                     token = get_token(usuario)
                     usuario.token = token
                     usuario.save()
