@@ -57,39 +57,39 @@ def crear_usuario(request):
     
 
 @csrf_exempt
-def login(request):
+def login_user(request):
     if request.method == 'POST':
         body = json.loads(request.body)
 
         campos_requeridos = ['email', 'contrasena']
         for campo in campos_requeridos:
             if campo not in body:
-                return JsonResponse({'error': f'Falta campo requerido: {campo}'}, status=400)
+                return JsonResponse({'mensaje': f'Falta campo requerido: {campo}'}, status=400)
 
         email = body.get('email')
         contrasena = body.get('contrasena')
 
-        usuario = authenticate(request, email=email, password=contrasena)
+        usuario = authenticate(request, email=email, contraseña=contrasena)
         if usuario is not None:
-            login(request, usuario, backend='django.contrib.auth.backends.ModelBackend')
+            login(usuario, backend='django.contrib.auth.backends.ModelBackend')
             token = get_token(usuario)
             usuario.token = token
             usuario.save()
-            return JsonResponse({'token': token})
+            return JsonResponse({'mensaje': token})
         else:
             usuario_existente = Usuarios.objects.filter(email=email).exists()
             if usuario_existente:
                 usuario = Usuarios.objects.get(email=email)
                 if not check_password(contrasena, usuario.contraseña):
-                    return JsonResponse({'error': 'Contraseña incorrecta'}, status=401)
+                    return JsonResponse({'mensaje': 'Contraseña incorrecta'}, status=401)
                 else:
                     login(request, usuario)
                     token = get_token(usuario)
                     usuario.token = token
                     usuario.save()
-                    return JsonResponse({'token': token})
+                    return JsonResponse({'mensaje': token})
             else:
-                return JsonResponse({'error': 'Usuario no encontrado'}, status=404)
+                return JsonResponse({'mensaje': 'Usuario no encontrado'}, status=404)
     else:
         return render(request, 'login.html')
 
