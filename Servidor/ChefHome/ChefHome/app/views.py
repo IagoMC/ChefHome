@@ -71,7 +71,7 @@ def login_user(request):
 
         usuario = authenticate(request, email=email, contraseña=contrasena)
         if usuario is not None:
-            login(usuario, backend='django.contrib.auth.backends.ModelBackend')
+            login(request, usuario, backend='django.contrib.auth.backends.ModelBackend')
             token = get_token(usuario)
             usuario.token = token
             usuario.save()
