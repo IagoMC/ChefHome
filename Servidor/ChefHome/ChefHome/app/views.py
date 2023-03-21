@@ -137,4 +137,7 @@ _______________________
 
     raise errorclass(errno, errval)s
 django.db.utils.ProgrammingError: (1146, "Table 'ChefHome.django_session' doesn't exist")
+----
+ValueError: The following fields do not exist in this model, are m2m fields, or are non-concrete fields: last_login
+
 """
