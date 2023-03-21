@@ -56,6 +56,8 @@ def crear_usuario(request):
     
     
 
+User = get_user_model()
+
 @csrf_exempt
 def login_user(request):
     if request.method == 'POST':
@@ -69,39 +71,21 @@ def login_user(request):
         email = body.get('email')
         contrasena = body.get('contrasena')
 
-        usuario = authenticate(request, email=email, contraseña=contrasena)
-        if usuario is not None:
-            login(request, usuario, backend='django.contrib.auth.backends.ModelBackend')
-            token = get_token(usuario)
+        usuario = User.objects.filter(email=email).first()
+        if usuario is not None and usuario.check_password(contrasena):
+            payload = {
+                'usuario_id': usuario.id,
+                'usuario_nombre': usuario.nombre,
+                'usuario_email': usuario.email,
+            }
+            token = jwt.encode(payload, settings.JWT_SECRET_KEY, algorithm='HS256')
             usuario.token = token
             usuario.save()
-            return JsonResponse({'mensaje': token})
+            return JsonResponse({'token': token.decode('utf-8')})
         else:
-            usuario_existente = Usuarios.objects.filter(email=email).exists()
-            if usuario_existente:
-                usuario = Usuarios.objects.get(email=email)
-                if not check_password(contrasena, usuario.contraseña):
-                    return JsonResponse({'mensaje': 'Contraseña incorrecta'}, status=401)
-                else:
-                    login(request, usuario)
-                    token = get_token(usuario)
-                    usuario.token = token
-                    usuario.save()
-                    return JsonResponse({'mensaje': token})
-            else:
-                return JsonResponse({'mensaje': 'Usuario no encontrado'}, status=404)
+            return JsonResponse({'mensaje': 'Email o contraseña incorrectos'}, status=401)
     else:
-        return render(request, 'login.html')
-
-
-def get_token(usuario):
-    payload = {
-        'usuario_id': usuario.id,
-        'usuario_nombre': usuario.nombre,
-        'usuario_email': usuario.email,
-    }
-    token = jwt.encode(payload, settings.JWT_SECRET_KEY, algorithm='HS256')
-    return token.decode('utf-8')
+        return JsonResponse({'mensaje': 'Método no permitido'}, status=405)
 
 """
    raise FieldError(
