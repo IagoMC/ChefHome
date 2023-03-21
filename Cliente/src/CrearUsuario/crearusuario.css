@@ -1,0 +1,73 @@
+.fondo {
+    background-color: #d42a2a;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .Principal_CrearUsuario {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .cu {
+    margin-bottom: 5%;
+    font-size: 25px;
+  }
+  
+  .CrearUsuario {
+    width: 30%;
+    background-color: white;
+    width: 30%;
+    height: 600px;
+    border-radius: 15px;
+  }
+  .form_CrearUsuario {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+   
+  }
+  .contraseña_CrearUsuario[type="password"] {
+      margin-bottom: 5%;
+      border: 4px solid #d42a2a;
+      width: 40%;
+      border-radius: 15px;
+      height: 45px;
+      padding: 0 10px;
+  }
+  
+  .ccontraseña_CrearUsuario[type="password"] {
+      margin-bottom: 5%;
+      border: 4px solid #d42a2a;
+      width: 40%;
+      border-radius: 15px;
+      height: 45px;
+      padding: 0 10px;
+  }
+  .email_CrearUsuario[type="text"] {
+    margin-bottom: 5%;
+    border: 4px solid #d42a2a;
+    width: 50%;
+    border-radius: 15px;
+  }
+  .nombre_crearUsuario[type="text"] {
+    margin-bottom: 5%;
+    border: 4px solid #d42a2a;
+    width: 50%;
+    border-radius: 15px;
+  }
+  .EnviarInicioSesion[type="submit"] {
+    margin-top: 4%;
+    width: 20%;
+    height: 40%;
+    border-radius: 1000px;
+    width: 22%;
+    height: 50px;
+    border-radius: 15px;
+    font-size: 15px;
+  }
+  
