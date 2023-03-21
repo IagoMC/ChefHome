@@ -56,7 +56,7 @@ def crear_usuario(request):
     
     
 
-User = get_user_model()
+#User = get_user_model()
 
 @csrf_exempt
 def login_user(request):
