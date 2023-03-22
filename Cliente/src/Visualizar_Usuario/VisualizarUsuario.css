@@ -1,0 +1,23 @@
+.Fondo_VisualizarUsuario{
+    display: flex;
+    justify-content: center;
+}
+.Contenedor_visualizarUsuario{
+    width: 70%;
+    background-color: white;
+    border: 5px solid #d42a2a;
+    height: 1000px;
+    border-radius: 15px;
+    display: flex;
+}
+.ImagenUsuario_VisualizarUsuario{
+    width: 400px;
+    height: 400px;
+    border: 2px solid black;
+    border-radius: 15px;
+
+}
+
+.NombreUsuario_VisualizarUsuario{
+    font-size: 30px;
+}

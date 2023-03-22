@@ -1,0 +1,51 @@
+.Fondo_EditarUsuario{
+    display: flex;
+    justify-content: center;
+}
+.Contenedor_EditarUsuario{
+    width: 70%;
+    background-color: white;
+    border: 5px solid #d42a2a;
+    height: 500px;
+    border-radius: 15px;
+    display: flex;
+}
+.ImagenUsuario_EditarUsuario{
+    width: 400px;
+    height: 400px;
+    border: 2px solid black;
+    border-radius: 15px;
+    margin-top: 5%;
+    margin-left: 5%;
+
+}
+
+.NombreUsuario_EditarUsuario{
+    font-size: 50px;
+}
+
+.Nombre_y_Descripcion_EditarUsuario{
+width: 10%;
+height: 100px;
+margin-left: 3%;
+}
+
+.Botones_EditarUsuario{
+    background-color: antiquewhite;
+    height: 50px;
+    width: 50%;
+    display: flex;
+    
+
+}
+.BotonCambiarContraseña_EditarUsuario{
+    width: 30%;
+    height: 50px;
+    border-radius: 15px;
+    background-color: #d42a2a;
+}
+.BotonCrearPublicacion_EditarUsuario{
+    width: 30%;
+    height: 50px;
+    border-radius: 15px;
+    background-color: #d42a2a;}

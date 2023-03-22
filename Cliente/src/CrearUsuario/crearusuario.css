@@ -34,31 +34,37 @@
   .contraseña_CrearUsuario[type="password"] {
       margin-bottom: 5%;
       border: 4px solid #d42a2a;
-      width: 40%;
+      width: 50%;
       border-radius: 15px;
       height: 45px;
-      padding: 0 10px;
+      padding-left: 10px;
   }
   
   .ccontraseña_CrearUsuario[type="password"] {
       margin-bottom: 5%;
       border: 4px solid #d42a2a;
-      width: 40%;
+      width: 50%;
       border-radius: 15px;
       height: 45px;
-      padding: 0 10px;
+      padding-left: 10px;
   }
-  .email_CrearUsuario[type="text"] {
+  .email_CrearUsuario[type="email"] {
     margin-bottom: 5%;
     border: 4px solid #d42a2a;
     width: 50%;
+    height: 45px;
+    padding-left: 10px;
+
     border-radius: 15px;
   }
+
+  /*Error: El input por el lado izquierdo es mas grande que el resto*/
   .nombre_crearUsuario[type="text"] {
     margin-bottom: 5%;
     border: 4px solid #d42a2a;
     width: 50%;
     border-radius: 15px;
+    margin-left: 2%;
   }
   .EnviarInicioSesion[type="submit"] {
     margin-top: 4%;

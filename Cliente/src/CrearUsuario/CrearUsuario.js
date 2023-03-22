@@ -47,7 +47,7 @@ const CrearUsuario = (props) => {
             <b className="cu">Crear Usuario</b>
             <input
               className="email_CrearUsuario"
-              type="text"
+              type="email"
               placeholder="Email..."
               value={email}
               onChange={(event) => setEmail(event.target.value)}
