@@ -71,6 +71,9 @@ class Usuarios(models.Model):
     fotoperfil = models.CharField(db_column='fotoPerfil', max_length=300, blank=True, null=True)  # Field name made lowercase.
     token = models.CharField(max_length=300, blank=True, null=True)
 
+    def check_password(self, sinCifrarContrasena):
+        # Compara la contraseña enviada con la de la BD
+        return check_password(sinCifrarContrasena, self.contrasena)
     class Meta:
         managed = False
         db_table = 'Usuarios'
