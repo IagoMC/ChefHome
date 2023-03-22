@@ -6,7 +6,7 @@ from datetime import datetime, timedelta
 from .models import Usuarios
 import json
 from django.contrib.auth.models import UserManager
-from django.contr ib.auth.models import User
+from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
 from django.shortcuts import render
 from django.conf import settings
@@ -70,7 +70,7 @@ def login_user(request):
         email = body.get('email')
         contrasena = body.get('contrasena')
 
-        usuario = User.objects.filter(email=email).first()
+        usuario = Usuarios.objects.filter(email=email).first()
         if usuario is not None:
             if usuario.check_password(contrasena):
                 payload = {
