@@ -6,7 +6,7 @@ from datetime import datetime, timedelta
 from .models import Usuarios
 import json
 from django.contrib.auth.models import UserManager
-from django.contrib.auth.models import User
+from django.contr ib.auth.models import User
 from django.contrib.auth.hashers import make_password
 from django.shortcuts import render
 from django.conf import settings
@@ -56,7 +56,7 @@ def crear_usuario(request):
 
     
 
-#User = get_user_model()
+
 @csrf_exempt
 def login_user(request):
     if request.method == 'POST':
