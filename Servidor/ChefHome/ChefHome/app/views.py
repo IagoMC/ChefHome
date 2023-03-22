@@ -81,7 +81,7 @@ def login_user(request):
                 token = jwt.encode(payload, settings.JWT_SECRET_KEY, algorithm='HS256')
                 usuario.token = token
                 usuario.save()
-                return JsonResponse({'token': token.decode('utf-8')})
+                return JsonResponse({'token': str(token)})
             else:
                 return JsonResponse({'mensaje': 'Contraseña incorrecta'}, status=401)
         else:
