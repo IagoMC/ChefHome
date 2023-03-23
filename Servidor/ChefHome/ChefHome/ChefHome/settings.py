@@ -28,8 +28,15 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        # otros mecanismos de autenticación, si los hay
+    ],
+    # otras configuraciones de REST framework, si las hay
+}
 
-# Application definition
+
 
 INSTALLED_APPS = [
     'app.apps.AppConfig',
