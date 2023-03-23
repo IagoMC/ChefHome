@@ -31,6 +31,8 @@ ALLOWED_HOSTS = []
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+
         # otros mecanismos de autenticación, si los hay
     ],
     # otras configuraciones de REST framework, si las hay

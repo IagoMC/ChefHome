@@ -15,6 +15,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import authentication_classes, permission_classes
 from rest_framework.views import APIView
 
+from rest_framework.authentication import TokenAuthentication
 
 @csrf_exempt
 def crear_usuario(request):
