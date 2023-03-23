@@ -11,6 +11,9 @@ from django.contrib.auth.hashers import make_password
 from django.shortcuts import render
 from django.conf import settings
 from django.contrib.auth.hashers import check_password
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.decorators import authentication_classes, permission_classes
+from rest_framework.views import APIView
 
 
 @csrf_exempt
@@ -88,6 +91,20 @@ def login_user(request):
             return JsonResponse({'mensaje': 'Email incorrecto'}, status=401)
     else:
         return JsonResponse({'mensaje': 'Método no permitido'}, status=405)
+
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
+class editar_Usuario(APIView):
+    def get(self, request):
+        usuario = request.Usuarios
+        data = {
+            'nombre': usuario.nombre,
+            'descripcion': usuario.descripcion,
+            'fotoperfil': usuario.fotoperfil.url
+        }
+        return JsonResponse(data)
+
+
 
 """
    raise FieldError(
