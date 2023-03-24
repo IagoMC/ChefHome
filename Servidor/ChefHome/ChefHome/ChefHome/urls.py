@@ -16,11 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from app import views
-from .views import editar_Usuario
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('login', views.login_user, name='login_user'),
     path('crear_usuario', views.crear_usuario, name='crear_usuario'),
-    path('editar_usuario', editar_Usuario.as_view(), ),
+    path('editar_usuario', views.editar_usuario ),
 
 ]
