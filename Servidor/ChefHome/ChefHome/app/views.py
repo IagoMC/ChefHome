@@ -102,6 +102,7 @@ def editar_usuario(request):
 
     # Obtener el token de autenticacion de la cabecera de la solicitud
     token = request.META.get('HTTP_AUTHORIZATION').split(' ')[1]
+    print(request.META.get('HTTP_AUTHORIZATION'))
     try:
         usuario = Usuarios.objects.get(token=token)
     except usuario.DoesNotExist:
