@@ -99,12 +99,21 @@ def login_user(request):
 @authentication_classes([TokenAuthentication])
 @permission_classes([IsAuthenticated])
 def editar_usuario(request):
-    usuario = request.Usuarios
+
+    # Obtener el token de autenticacion de la cabecera de la solicitud
+    token = request.META.get('HTTP_AUTHORIZATION').split(' ')[1]
+    try:
+        usuario = Usuarios.objects.get(token=token)
+    except usuario.DoesNotExist:
+        return JsonResponse({'mensaje': 'El usuario no existe'}, status=404)
+
     data = {
         'nombre': usuario.nombre,
         'descripcion': usuario.descripcion,
         'fotoperfil': usuario.fotoperfil,
     }
+
+
     return JsonResponse(data)
 
 
